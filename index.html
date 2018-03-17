@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RPS-Multiplayer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+</head>
+
+<body onunload="unloadPlayer()">
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <h1 class="display-4 text-center">Rock Paper Scissors</h1>
+        </div>
+        <div id="newPlayer">
+            <input id="addUser" type="text" name="playerName">
+            <button id="start">START</button>
+        </div>
+        <div class="card-deck text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h5 id="player1" class="card-title">Player 1</h5>
+                    <h5 id="choice1"></h5>
+                    <div id="choiceOptions1">
+                        <p class="card-text">Rock</p>
+                        <p class="card-text">Paper</p>
+                        <p class="card-text">Scissors</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small id="wins1" class="text-muted">Wins: </small>
+                    <small id="losses1" class="text-muted">Losses: </small>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" id="messageTitle">Winner!</h5>
+                    <p class="card-text" id="messageText">_____ wins!</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 id="player2" class="card-title">Player 2</h5>
+                    <h5 id="choice2"></h5>
+                    <div id="choiceOptions2">
+                        <p class="card-text">Rock</p>
+                        <p class="card-text">Paper</p>
+                        <p class="card-text">Scissors</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small id="wins2" class="text-muted">Wins: </small>
+                    <small id="losses2" class="text-muted">Losses: </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/game.js"></script>
+</body>
+
+</html>
