@@ -40,40 +40,77 @@ function init() {
 
 }
 function addWin(player) {
-    var p = database.ref('players/' + thisPlayer).once('value').then(function (snapshot) {
-        if (player === thisPlayer) {
-            var wins = snapshot.child('wins').val();
-            players.child(thisPlayer).child('wins').set(wins + 1);
-        }
-        else {
-            var losses = snapshot.child('losses').val();
-            players.child(thisPlayer).child('losses').set(losses + 1);
-        }
-    })
+    if (thisPlayer === 1) {
+        var p1 = database.ref('players/1').once('value').then(function (snapshot) {
+            if (player === 1) {
+                var wins = snapshot.child('wins').val();
+                players.child(1).child('wins').set(wins + 1);
+            }
+            else {
+                var losses = snapshot.child('losses').val();
+                players.child(1).child('losses').set(losses + 1);
+            }
+
+        })
+        var p2 = database.ref('players/2').once('value').then(function (snapshot) {
+            if (player === 2) {
+                var wins = snapshot.child('wins').val();
+                players.child(2).child('wins').set(wins + 1);
+            }
+            else {
+                var losses = snapshot.child('losses').val();
+                players.child(2).child('losses').set(losses + 1);
+            }
+
+        })
+    }
     //if player = this player
 
     //increment this player wins
 }
 
 function checkForWinner() {
-    if (player1choice !== "" && player2choice !== "") {
+
+    if (player1choice !== null && player1choice !== ""
+        && player2choice !== null && player2choice !== "") {
+        var winner = 0;
+        var msg = "";
         player1choice = player1choice === null ? "" : player1choice.toLowerCase();
         player2choice = player2choice === null ? "" : player2choice.toLowerCase();
         if ((player1choice === "rock") && (player2choice === "scissors")) {
-            addWin(1);
+            winner = 1;
+            msg = "Rock breaks scissors."
         } else if ((player1choice === "rock") && (player2choice === "paper")) {
-            addWin(2);
+            winner = 2;
+            msg = "Paper covers rock."
         } else if ((player1choice === "scissors") && (player2choice === "rock")) {
-            addWin(2);
+            winner = 2;
+            msg = "Rock breaks scissors."
         } else if ((player1choice === "scissors") && (player2choice === "paper")) {
-            addWin(1);
+            winner = 1;
+            msg = "Scissors cuts paper."
         } else if ((player1choice === "paper") && (player2choice === "rock")) {
-            addWin(1);
+            winner = 1;
+            msg = "Paper covers rock."
         } else if ((player1choice === "paper") && (player2choice === "scissors")) {
-            addWin(2);
+            winner = 2;
+            msg = "Scissors cuts paper."
         } else if (player1choice === player2choice) {
             $("#messageTitle").text("It's a tie!");
         }
+        if (winner === 1) {
+            addWin(1);
+            $("#messageTitle").text(msg + " " + $("#player1").text() + " wins");
+        }
+        else if (winner === 2) {
+            addWin(2);
+            $("#messageTitle").text(msg + " " + $("#player2").text() + " wins");
+        }
+        setTimeout(function () {
+            $("#messageTitle").text("");
+        }, 5000);
+        players.child(1).child('choice').set("");
+        players.child(2).child('choice').set("");
     }
 }
 
@@ -93,13 +130,14 @@ $("#start").on("click", function () {
                 thisPlayer = 1;
                 $("#choiceOptions1 p").on("click", setChoice);
                 $("#choiceOptions2").hide();
+                $("#choice2").hide();
 
             }
             else if (snapshot.numChildren() === 1) {
                 thisPlayer = 2;
                 $("#choiceOptions2 p").on("click", setChoice);
                 $("#choiceOptions1").hide();
-
+                $("#choice1").hide();
             }
             else {
                 //too many players
